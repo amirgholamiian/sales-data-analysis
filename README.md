@@ -49,5 +49,5 @@ jupyter notebook analysis.ipynb
 ```
 
 ---
-**Author**: [Your Name]  
+**Author**: Amirhossein Gholamian
 **License**: MIT
