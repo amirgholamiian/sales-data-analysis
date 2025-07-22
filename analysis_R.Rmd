@@ -1,0 +1,71 @@
+
+---
+title: "📊 Sales Data Analysis in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 📦 Load Libraries and Data
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(lubridate)
+
+# Load the dataset
+sales_data <- read_csv("data/sales_data.csv")
+head(sales_data)
+```
+
+## 📈 Monthly Sales Trend
+
+```{r}
+sales_data$Date <- as.Date(sales_data$Date)
+monthly_sales <- sales_data %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Month) %>%
+  summarise(Total_Sales = sum(Total_Sales))
+
+ggplot(monthly_sales, aes(x = Month, y = Total_Sales)) +
+  geom_line(color = "steelblue") +
+  geom_point() +
+  labs(title = "Monthly Sales Trend", x = "Month", y = "Total Sales (€)")
+```
+
+## 🧁 Sales Share by Product
+
+```{r}
+product_sales <- sales_data %>%
+  group_by(Product) %>%
+  summarise(Total_Sales = sum(Total_Sales))
+
+ggplot(product_sales, aes(x = "", y = Total_Sales, fill = Product)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(title = "Sales Share by Product") +
+  theme_void()
+```
+
+## 💰 Advertising Spend vs Sales
+
+```{r}
+ggplot(sales_data, aes(x = Advertising_Spend, y = Total_Sales, color = Product)) +
+  geom_point(alpha = 0.7) +
+  labs(title = "Advertising Spend vs Total Sales", x = "Ad Spend (€)", y = "Total Sales (€)")
+```
+
+## 🌍 Sales by Region
+
+```{r}
+region_sales <- sales_data %>%
+  group_by(Region) %>%
+  summarise(Total_Sales = sum(Total_Sales))
+
+ggplot(region_sales, aes(x = Region, y = Total_Sales, fill = Region)) +
+  geom_col() +
+  labs(title = "Total Sales by Region", x = "Region", y = "Sales")
+```
