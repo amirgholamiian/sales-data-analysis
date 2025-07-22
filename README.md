@@ -37,7 +37,7 @@ See the `images/` folder for insightful charts created using `matplotlib` and `s
 ## 🚀 How to Run
 1. Clone this repo:
 ```
-git clone https://github.com/your-username/sales-data-analysis.git
+git clone https://github.com/amirgholamiian/sales-data-analysis.git
 ```
 2. Install dependencies:
 ```
